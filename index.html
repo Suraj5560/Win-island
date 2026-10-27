@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        html,
+        body {
+            margin: 0;
+            background: transparent;
+            overflow: hidden;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        .island {
+            width: 180px;
+            height: 15px;
+            margin: 0 auto;
+            background: #000;
+            border-radius: 0 0 16px 16px;
+            /* flat top, rounded bottom */
+            overflow: hidden;
+            position: relative;
+
+            transition:
+                width 0.5s cubic-bezier(0.34, 1.4, 0.64, 1),
+                height 0.5s cubic-bezier(0.34, 1.4, 0.64, 1),
+                border-radius 0.5s cubic-bezier(0.34, 1.4, 0.64, 1);
+        }
+
+        .island:hover {
+            width: 380px;
+            height: 120px;
+            border-radius: 0 0 32px 32px;
+            /* bigger bottom curve when open */
+        }
+
+        .content {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 16px;
+            opacity: 0;
+            transform: scale(0.9);
+            transition: opacity 0.2s ease, transform 0.2s ease;
+        }
+
+        /* fade content in slightly after the island starts growing */
+        .island:hover .content {
+            opacity: 1;
+            transform: scale(1);
+            transition-delay: 0.15s;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="island">
+        <div class="content">Hello Island 👋</div>
+    </div>
+
+    <script>
+        const island = document.querySelector('.island');
+
+        island.addEventListener('mouseenter', () => {
+            window.island.setIgnoreMouse(false); // island captures the mouse
+        });
+
+        island.addEventListener('mouseleave', () => {
+            window.island.setIgnoreMouse(true);  // clicks pass through again
+        });
+    </script>
+</body>
+
+</html>
